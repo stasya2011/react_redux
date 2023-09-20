@@ -9,6 +9,8 @@ import {
 
 export const initialState: IUserState = {
   users: [],
+  error: false,
+  loaded: true,
 };
 
 export const userReducer = (
@@ -19,23 +21,23 @@ export const userReducer = (
 
   switch (action.type) {
     case USER.ADD:
-      return { users: [...cloneState.users, action.payload] };
+      return { ...cloneState, users: [...cloneState.users, action.payload] };
 
     case USER.ADD_ALL:
-      return { users: [...action.payload] };
+      return { ...cloneState, users: [...action.payload] };
 
     case USER.REMOVE:
       const updateUsers = cloneState.users.filter(
         (user: IUser) => user.id !== action.payload
       );
-      return { users: [...updateUsers] };
+      return { ...cloneState, users: [...updateUsers] };
 
     case USER.SEARCH:
       const searchedUsers = cloneState.users.filter((user: IUser) => {
         return user.name.toLowerCase().includes(action.payload.toLowerCase());
       });
       if (action.payload) {
-        return { users: [...searchedUsers] };
+        return { ...cloneState, users: [...searchedUsers] };
       }
       return state;
 
@@ -92,6 +94,12 @@ export const userReducer = (
         }
       });
       return cloneState;
+
+    case USER.ERROR:
+      return { ...cloneState, error: action.payload };
+
+    case USER.LOADING:
+      return { ...cloneState, loaded: action.payload };
 
     default:
       return state;

@@ -1,5 +1,7 @@
 export interface IUserState {
   users: IUser[];
+  error: boolean;
+  loaded: boolean;
 }
 
 export interface IUser {
@@ -23,6 +25,8 @@ export enum USER {
   REMOVE = "REMOVE",
   ADD_ALL = "ADD_ALL",
   SEARCH = "SEARCH",
+  ERROR = "ERROR",
+  LOADING = "LOADING",
 }
 
 export enum REPORT {
@@ -49,6 +53,16 @@ export interface IRemoveUserAction {
 export interface ISearchUserAction {
   type: USER.SEARCH;
   payload: string;
+}
+
+export interface IFeachError {
+  type: USER.ERROR;
+  payload: boolean;
+}
+
+export interface IFeachLoading {
+  type: USER.LOADING;
+  payload: boolean;
 }
 
 export interface IAddReportAction {
@@ -79,7 +93,9 @@ export type IAction =
   | IAddReportAction
   | IRemoveReportAction
   | IRemoveDataAction
-  | IAddDataAction;
+  | IAddDataAction
+  | IFeachLoading
+  | IFeachError;
 
 export interface IListItem {
   id: number;

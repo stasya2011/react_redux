@@ -1,16 +1,28 @@
 import { Dispatch } from "redux";
-import { IAddALLUsersAction, USER, REPORT } from "../../types";
+import {
+  IAddALLUsersAction,
+  IFeachError,
+  IFeachLoading,
+  USER,
+  REPORT,
+} from "../../types";
 import axios from "axios";
 
 const url = "http://localhost:3500/users";
 
 export const addAllUsers =
-  () => async (dispatch: Dispatch<IAddALLUsersAction>) => {
+  () =>
+  async (
+    dispatch: Dispatch<IAddALLUsersAction | IFeachError | IFeachLoading>
+  ) => {
     try {
+      dispatch({ type: USER.LOADING, payload: false });
       const response = await axios.get(url);
+      dispatch({ type: USER.LOADING, payload: true });
       dispatch({ type: USER.ADD_ALL, payload: response.data });
     } catch (e) {
       console.log(e);
+      dispatch({ type: USER.ERROR, payload: true });
     }
   };
 
