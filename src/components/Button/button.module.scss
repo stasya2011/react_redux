@@ -1,0 +1,17 @@
+.btn {
+    border: 2px solid teal;
+    background-color: transparent;
+    font-size: 16px;
+    color:teal; 
+    font-weight: 600;
+    padding: 10px 20px;
+    border-radius: 10px;
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.btn-not-border {
+    border: none
+}

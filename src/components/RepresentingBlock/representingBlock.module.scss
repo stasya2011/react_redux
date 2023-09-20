@@ -1,0 +1,45 @@
+.bottom {
+    margin-top: 20px;
+    background-color: rgba(135, 207, 235, 0.362);
+    display: none;
+
+    &_active {
+        display: block;
+    }
+}
+
+.content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.reports {
+    border: 2px solid teal;
+    margin: 20px;
+    display: flex;
+    padding: 10px;
+    border-radius: 10px;
+    gap: 20px;
+
+    &_item {
+        position: relative;
+
+        & > button {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+        }
+    }
+}
+
+
+.top {
+    display: flex;
+    justify-content: space-between;
+}
+
+.content_R {
+    margin-left: 20px;
+    font-size: 20px;
+}
