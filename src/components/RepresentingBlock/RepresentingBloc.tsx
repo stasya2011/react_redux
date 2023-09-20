@@ -2,7 +2,7 @@ import { useMediaQuery } from "@uidotdev/usehooks";
 import { useActions } from "../../hooks/redux";
 import { IUser } from "../../types";
 import Button from "../Button";
-import ReportBlock from "../ReportBlock";
+import ListOfReports from "../ListOfReports";
 import styles from "./representingBlock.module.scss";
 import classnames from "classnames";
 
@@ -34,7 +34,7 @@ const RepresentingBloc = ({
           {isSmallDevice ? <>&#43;</> : "Add report"}
         </Button>
       </div>
-      {user.reports.length ? <ReportBlock {...user} /> : null}
+      {user.reports.length ? <ListOfReports {...user} /> : null}
     </div>
   );
 };
