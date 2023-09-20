@@ -25,6 +25,13 @@ export enum USER {
   SEARCH = "SEARCH",
 }
 
+export enum REPORT {
+  ADD = "ADD_REPORT",
+  REMOVE = "REMOVE_REPORT",
+  ADD_DATA = "ADD_DATA",
+  REMOVE_DATA = "REMOVE_DATA",
+}
+
 export interface IAddALLUsersAction {
   type: USER.ADD_ALL;
   payload: IUser[];
@@ -43,11 +50,36 @@ export interface ISearchUserAction {
   type: USER.SEARCH;
   payload: string;
 }
+
+export interface IAddReportAction {
+  type: REPORT.ADD;
+  payload: { id: number; user_id: number };
+}
+
+export interface IRemoveReportAction {
+  type: REPORT.REMOVE;
+  payload: { id: number; user_id: number };
+}
+
+export interface IRemoveDataAction {
+  type: REPORT.REMOVE_DATA;
+  payload: { data_id: number; report_id: number; user_id: number };
+}
+
+export interface IAddDataAction {
+  type: REPORT.ADD_DATA;
+  payload: { report_id: number; user_id: number; link: string };
+}
+
 export type IAction =
   | IAddALLUsersAction
   | IAddUserAction
   | IRemoveUserAction
-  | ISearchUserAction;
+  | ISearchUserAction
+  | IAddReportAction
+  | IRemoveReportAction
+  | IRemoveDataAction
+  | IAddDataAction;
 
 export interface IListItem {
   id: number;

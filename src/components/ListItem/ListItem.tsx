@@ -2,7 +2,7 @@ import { useState } from "react";
 import TopItem from "./TopItem/TopItem";
 import styles from "./listItem.module.scss";
 import RepresentingBloc from "../RepresentingBlock/RepresentingBloc";
-import { IUser } from "../../types/types";
+import { IUser } from "../../types";
 
 const ListItem = ({ user, index }: { user: IUser; index: number }) => {
   const [isOpenedBottomPart, setIsOpenedBottomPart] = useState(false);
@@ -13,11 +13,7 @@ const ListItem = ({ user, index }: { user: IUser; index: number }) => {
 
   return (
     <div className={styles.listItem}>
-      <TopItem
-        isOpenedBottomPart={isOpenedBottomPart}
-        toggleBottomPart={toggleBottomPart}
-        user={user}
-      >
+      <TopItem toggleBottomPart={toggleBottomPart} user={user}>
         <strong>{index + 1}.</strong> Client #{user.id} - {user.name}
       </TopItem>
       <RepresentingBloc isOpenedBottomPart={isOpenedBottomPart} user={user} />

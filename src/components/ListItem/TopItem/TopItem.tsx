@@ -1,22 +1,15 @@
 import { useActions } from "../../../hooks/redux";
 import Button from "../../Button";
 import styles from "./topItem.module.scss";
-import { IReport, IReportsAndId, IUser } from "../../../types/types";
+import { IReportsAndId, IUser } from "../../../types";
 import { useState } from "react";
-import RepresentingBloc from "../../RepresentingBlock/RepresentingBloc";
 
 interface ITopItem {
-  isOpenedBottomPart: boolean;
   toggleBottomPart: () => void;
   user: IUser | IReportsAndId;
   children: any;
 }
-const TopItem = ({
-  isOpenedBottomPart,
-  toggleBottomPart,
-  user,
-  children,
-}: ITopItem) => {
+const TopItem = ({ toggleBottomPart, user, children }: ITopItem) => {
   const { deleteUser } = useActions();
   const [isOpen, setIsOpen] = useState(false);
   const { id } = user;

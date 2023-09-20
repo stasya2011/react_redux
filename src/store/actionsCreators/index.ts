@@ -1,5 +1,5 @@
 import { Dispatch } from "redux";
-import { IAddALLUsersAction, USER } from "../../types/types";
+import { IAddALLUsersAction, USER, REPORT } from "../../types";
 import axios from "axios";
 
 const url = "http://localhost:3500/users";
@@ -44,3 +44,45 @@ export const searchUser = (query: string) => async (dispatch: Dispatch) => {
     console.log(e);
   }
 };
+
+export const addReports =
+  (content: { id: number; user_id: number }) => async (dispatch: Dispatch) => {
+    try {
+      // await axios.put(`${url}/${content.user_id/reports}`, {
+      //   id: 11111,
+      //   reports: [],
+      // });
+      dispatch({ type: REPORT.ADD, payload: content });
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+export const removeReports =
+  (content: { id: number; user_id: number }) => async (dispatch: Dispatch) => {
+    try {
+      dispatch({ type: REPORT.REMOVE, payload: content });
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+export const removeDataFromReports =
+  (content: { data_id: number; report_id: number; user_id: number }) =>
+  async (dispatch: Dispatch) => {
+    try {
+      dispatch({ type: REPORT.REMOVE_DATA, payload: content });
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+export const addDataFromReports =
+  (content: { report_id: number; user_id: number; link: string }) =>
+  async (dispatch: Dispatch) => {
+    try {
+      dispatch({ type: REPORT.ADD_DATA, payload: content });
+    } catch (e) {
+      console.log(e);
+    }
+  };

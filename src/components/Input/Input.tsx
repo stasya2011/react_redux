@@ -1,11 +1,5 @@
-import { useState, useEffect } from "react";
 import styles from "./input.module.scss";
 
-const Input = (props: any) => {
-  // const [searchQuery, setSearchQuery] = useState("");
-
-  useEffect(() => {});
-  return <input className={styles.input} {...props} />;
-};
+const Input = (props: any) => <input className={styles.input} {...props} />;
 
 export default Input;

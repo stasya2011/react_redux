@@ -1,6 +1,13 @@
-import { IAction, IUser, IUserState, USER } from "../../types/types";
+import {
+  IAction,
+  IUser,
+  IUserState,
+  USER,
+  REPORT,
+  IReportsAndId,
+} from "../../types";
 
-const initialState: IUserState = {
+export const initialState: IUserState = {
   users: [],
 };
 
@@ -25,39 +32,68 @@ export const userReducer = (
 
     case USER.SEARCH:
       const searchedUsers = cloneState.users.filter((user: IUser) => {
-        return user.name.includes(action.payload);
+        return user.name.toLowerCase().includes(action.payload.toLowerCase());
       });
       if (action.payload) {
         return { users: [...searchedUsers] };
       }
-
       return state;
+
+    case REPORT.ADD:
+      const newReports = {
+        id: action.payload.id,
+        reports: [],
+      };
+
+      cloneState.users.forEach((el: IUser) => {
+        if (el.id === action.payload.user_id) {
+          el.reports.push(newReports);
+        }
+      });
+
+      return cloneState;
+
+    case REPORT.REMOVE:
+      cloneState.users.forEach((el: IUser) => {
+        if (el.id === action.payload.user_id) {
+          el.reports = el.reports.filter(
+            (el: IReportsAndId) => el.id !== action.payload.id
+          );
+        }
+      });
+      return cloneState;
+
+    case REPORT.REMOVE_DATA:
+      const { user_id, report_id, data_id } = action.payload;
+      cloneState.users.forEach((el: IUser) => {
+        if (el.id === user_id) {
+          el.reports.forEach((report) => {
+            if (report.id === report_id) {
+              report.reports = report.reports.filter(
+                (data) => data.id !== data_id
+              );
+            }
+          });
+        }
+      });
+      return cloneState;
+
+    case REPORT.ADD_DATA:
+      cloneState.users.forEach((el: IUser) => {
+        if (el.id === action.payload.user_id) {
+          el.reports.forEach((report) => {
+            if (report.id === action.payload.report_id) {
+              report.reports.push({
+                id: Date.now(),
+                name: action.payload.link,
+              });
+            }
+          });
+        }
+      });
+      return cloneState;
 
     default:
       return state;
   }
 };
-
-//!
-// const defaultState = {
-//   cash: 0,
-// };
-
-// export const userReducer = (
-//   state: { cash: number } = defaultState,
-//   action: IAction
-// ) => {
-//   switch (action.type) {
-//     case "INC":
-//       return { ...state, cash: state.cash + 1 };
-//     case "DEC":
-//       return { ...state, cash: state.cash - 1 };
-//     case "RND": {
-//       return action.payload && typeof action.payload === "number"
-//         ? { ...state, cash: state.cash * action.payload }
-//         : state;
-//     }
-//     default:
-//       return state;
-//   }
-// };
