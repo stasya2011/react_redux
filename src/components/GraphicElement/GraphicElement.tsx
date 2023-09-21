@@ -67,7 +67,7 @@ const GraphicElement = ({
           ))}
         </div>
       ) : (
-        <h2 style={{ color: "red" }}>This report hasn't have data yet.</h2>
+        <h2 style={{ color: "red" }}>This report hasn't had the data yet.</h2>
       )}
     </div>
   );
